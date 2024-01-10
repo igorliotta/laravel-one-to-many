@@ -16,7 +16,9 @@
                     <th>Title</th>
                     <th>Slug</th>
                     <th></th>
-                    <th></th>
+                    <th>
+                        <a class="btn btn-primary btn-sm" href="{{ route('admin.projects.create') }}">Nuovo</a>
+                    </th>
                 </tr>
             </thead>
             <tbody>

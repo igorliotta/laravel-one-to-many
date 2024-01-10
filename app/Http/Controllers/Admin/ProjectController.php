@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -31,7 +33,17 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255|string|unique:projects',
+            'content' => 'nullable|min:5|string'
+        ]);
+
+        $data = $request->all();
+        $data['slug'] = Str::slug($data['title'], '-');
+
+        $project = Project::create($data);
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
@@ -55,7 +67,22 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'title' => ['required','max:255', 'string', Rule::unique('projects')->ignore($project->id)],
+            'content' => 'nullable|min:5|string'
+        ]);
+
+        $data = $request->all();
+
+        // if($project->title !== $data['title']) {
+
+            $data['slug'] = Str::slug($data['title'], '-');
+
+        // }
+
+        $project->update($data);
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
