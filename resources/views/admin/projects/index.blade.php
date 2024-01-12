@@ -15,6 +15,7 @@
                     <th>ID</th>
                     <th>Title</th>
                     <th>Slug</th>
+                    <th>Classe</th>
                     <th></th>
                     <th>
                         <a class="btn btn-primary btn-sm" href="{{ route('admin.projects.create') }}">Nuovo</a>
@@ -29,6 +30,9 @@
                             <a href="{{ route('admin.projects.show', $project) }}">{{ $project->title }}</a>
                         </td>
                         <td>{{ $project->slug }}</td>
+                        <td>
+                            {{ isset($project->type) ? $project->type->name : '-' }}
+                        </td>
                         <td>
                             <a href="{{ route('admin.projects.edit', $project) }}">Edit</a>
                         </td>

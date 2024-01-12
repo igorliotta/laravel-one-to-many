@@ -15,7 +15,18 @@
             
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" required class="form-control" id="title" name="title" placeholder="Titolo del progetto" value="{{ old('title') }}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Titolo del progetto" value="{{ old('title') }}">
+            </div>
+
+            {{-- @dump($types) --}}
+            <div class="mb-3">
+                <label for="type_id" class="form-label">Classi</label>
+                <select name="type_id" class="form-control" id="type_id">
+                    <option>Seleziona una classe</option>
+                    @foreach ($types as $type)
+                    <option @selected( old('type_id') == $type->id ) value="{{ $type->id }}">{{ $type->name }}</option>
+                    @endforeach
+                </select>
             </div>
     
             <div class="mb-3">

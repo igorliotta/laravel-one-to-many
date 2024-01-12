@@ -12,6 +12,13 @@ class Project extends Model
     protected $fillable = [
         'title',
         'content',
-        'slug'
+        'slug',
+        'type_id'
     ];
+
+    public function type() {
+
+        return $this->belongsTo(Type::class);
+    }
 }
+
